@@ -1,0 +1,56 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src/load_data.py --config=params.yaml
+    deps:
+    - path: notebooks/flight_fare_data.xlsx
+      md5: 756221384eb61ff168c5db6b81438501
+      size: 530389
+    - path: src/get_data.py
+      md5: d0aa9ce3f7503eeae4ecaef57186853a
+      size: 618
+    - path: src/load_data.py
+      md5: 1ee7253032103e5828ba930d83d35c92
+      size: 2691
+    outs:
+    - path: data/raw/flight_fare_data.csv
+      md5: 07d3d251aeab78273e345e6df7be4178
+      size: 393274
+  log_production_model:
+    cmd: python src/log_production_model.py --config=params.yaml
+    deps:
+    - path: src/log_production_model.py
+      md5: 36ea9704d730e0ca3c9db196b00fcba4
+      size: 1893
+  split_data:
+    cmd: python src/split_data.py --config=params.yaml
+    deps:
+    - path: data/raw/flight_fare_data.csv
+      md5: 07d3d251aeab78273e345e6df7be4178
+      size: 393274
+    - path: src/split_data.py
+      md5: 9f38134a1cc39ebc63a49dea07138967
+      size: 1047
+    outs:
+    - path: data/processed/test.csv
+      md5: 8d9ff57ae52e96e97282625bfffa7780
+      size: 75147
+    - path: data/processed/train.csv
+      md5: 44ed2e0f0c47785b777c96109f90bbe6
+      size: 300047
+  train_and_evaluate:
+    cmd: python src/train_and_evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/test.csv
+      md5: 8d9ff57ae52e96e97282625bfffa7780
+      size: 75147
+    - path: data/processed/train.csv
+      md5: 44ed2e0f0c47785b777c96109f90bbe6
+      size: 300047
+    - path: src/train_and_evaluate.py
+      md5: 8c589c4ef198398f748139246d679770
+      size: 2657
+    params:
+      params.yaml:
+        estimators.RandomForest.params.criterion: friedman_mse
+        estimators.RandomForest.params.n_estimators: 200

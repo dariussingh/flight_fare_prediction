@@ -4,7 +4,7 @@ stages:
     deps:
     - src/get_data.py
     - src/load_data.py
-    - notebooks/flight_fare_prediction.xlsx
+    - notebooks/flight_fare_data.xlsx
     outs: 
     - data/raw/flight_fare_data.csv
 
@@ -26,13 +26,13 @@ stages:
     params:
     - estimators.RandomForest.params.n_estimators
     - estimators.RandomForest.params.criterion
-    metrics:
-    - reports/scores.json
-    cache: false
-    - reports/params.json
-    cache: false
-    outs:
-    - models/model.joblib
+    # metrics:
+    # - reports/scores.json
+    # cache: false
+    # - reports/params.json
+    # cache: false
+    # outs:
+    # - models/model.joblib
 
   log_production_model:
     cmd: python src/log_production_model.py --config=params.yaml
