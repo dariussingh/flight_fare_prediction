@@ -1,0 +1,36 @@
+base:
+  project: flight_fare_prediction
+  random_state: 420
+  target_col: Price
+
+data_source:
+  s3_source: notebooks/flight_fare_data.xlsx
+
+load_data:
+  raw_dataset_csv: data/raw/flight_fare_data.csv
+
+split_data:
+  train_path: data/processed/train.csv
+  test_path: data/processed/test.csv
+  test_size: 0.2
+
+estimators:
+  RandomForest:
+    params:
+      n_estimators: 200
+      criterion: friedman_mse
+
+model_dir: models
+
+reports:
+  params: reports/params.json
+  scores: reports/scores.json
+
+webapp_model_dir: prediction_service/model/model.joblib
+
+mlflow_config:
+  artifacts_dir: artifacts
+  experiment_name: RandomForest_FlightFare
+  run_name: mlops
+  registered_model_name: RandomForestFlightFare
+  remote_server_uri: http://127.0.0.1:5000
