@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Medical Expenses</title>
+    <style>
+        .button {
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: green;
+        }
+
+        .button2{
+            background-color: blue;
+        }
+    </style>
+    </head>
+    <body style="background-color: powderblue;">
+        <center>
+            <h1><span style="color: red;">Flight Fare App</span></h1>
+            <h3>Please Enter the Data</h3> 
+            <br>
+            
+            <form action="{% url 'result' %}">
+                {% csrf_token %}
+                <table align="center">
+                    <tr><td>Airline: <td><input type="text" required name="Airline"></td></td></tr>
+                    <tr><td>Source: <td><input type="text" required name="Source"></td></td></tr>
+                    <tr><td>Destination: <td><input type="text" required name="Destination"></td></td></tr>
+                    <tr><td>Total_Stops: <td><input type="text" required name="Total_Stops"></td></td></tr>
+                    <tr><td>Journey_Day: <td><input type="text" required name="Journey_Day"></td></td></tr>
+                    <tr><td>Journey_month: <td><input type="text" required name="Journey_month"></td></td></tr>
+                    <tr><td>Dep_Hour: <td><input type="text" required name="Dep_Hour"></td></td></tr>
+                    <tr><td>Dep_Min: <td><input type="text" required name="Dep_Min"></td></td></tr>
+                    <tr><td>Arrival_Hour: <td><input type="text" required name="Arrival_Hour"></td></td></tr>
+                    <tr><td>Arrival_min: <td><input type="text" required name="Arrival_min"></td></td></tr>
+                    <tr><td>Duration_hours: <td><input type="text" required name="Duration_hours"></td></td></tr>
+                    <tr><td>Duration_mins: <td><input type="text" required name="Duration_mins"></td></td></tr>
+                </table>
+                <button type="submit" name="" value="submit" class="button button1">Submit</button>
+                <button type="reset" name="" value="reset" class="button button2">Reset</button>
+            </form>
+
+            {% if answer %}
+            <h2 style="color: orange;">The flight fare is USD {{answer}}.</h2>
+            <h3 style="color: green">Thanks for using the Flight Fare Prediction App.</h3>
+            {% endif %}
+        </center>
+    </body>
+</html>

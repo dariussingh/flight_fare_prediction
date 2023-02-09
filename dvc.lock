@@ -53,4 +53,4 @@ stages:
     params:
       params.yaml:
         estimators.RandomForest.params.criterion: friedman_mse
-        estimators.RandomForest.params.n_estimators: 200
+        estimators.RandomForest.params.n_estimators: 190
